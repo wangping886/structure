@@ -2,37 +2,54 @@ package main
 
 import "fmt"
 
-func lengthOfLongestSubstring(s string) int {
-	// 哈希集合，记录每个字符是否出现过
-	m := map[byte]int{}
-	n := len(s)
-	// 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
-	rk, ans := -1, 0
-	for i := 0; i < n; i++ {
-		if i != 0 {
-			// 左指针向右移动一格，移除一个字符
-			delete(m, s[i-1])
-		}
-		for rk+1 < n && m[s[rk+1]] == 0 {
-			// 不断地移动右指针
-			m[s[rk+1]]++
-			rk++
-		}
-		// 第 i 到 rk 个字符是一个极长的无重复字符子串
-		ans = max(ans, rk-i+1)
-	}
-	fmt.Println(m)
-	return ans
+type Node struct {
+	Data      int
+	NextPoint *Node
+	PrePoint  *Node
 }
 
-func max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
+type LinkedList struct {
+	head *Node
+	tail *Node
 }
 
 func main() {
-	fmt.Println(lengthOfLongestSubstring("abccddgef"))
+	data := []int{1, 21, 31, 51, 62, 2, 3, 42, 33, 12, 12}
+	link := LinkedList{}
+	var currentNode *Node
+	for i := 0; i < len(data); i++ {
+		currentNode = new(Node)
+		currentNode.Data = data[i]
+		insertNode(&link, currentNode)
+	}
+	showLinkedList(link)
+}
+
+//当下一个节点为nil的时候 结束迭代
+func showLinkedList(link LinkedList) {
+	var currentNode *Node
+	currentNode = link.head
+	for {
+		fmt.Println("Node:", currentNode.Data)
+		if currentNode.NextPoint == nil {
+			break
+		} else {
+			currentNode = currentNode.NextPoint
+		}
+	}
+}
+
+func insertNode(link *LinkedList, node *Node) {
+	if link.head == nil {
+		link.head = node
+		link.tail = node
+	} else {
+		link.tail.NextPoint = node
+		node.PrePoint = link.tail
+		link.tail = node
+	}
+}
+
+func reverseLinkedList(l *LinkedList) {
 
 }
