@@ -49,6 +49,7 @@ func DFSTraverseTree() {
 
 }
 
+//广度优先对当前每一个节点都应该优先输出他的所有子节点，先访问的先保证输出，可以借助队列
 func BFSTraverseTree(t *binaryNode) {
 	nodeQueue := make([]*binaryNode, 0)
 	if t == nil {
