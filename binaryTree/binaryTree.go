@@ -45,7 +45,12 @@ func traverseTree(t *binaryNode) {
 	traverseTree(t.Right)
 }
 
-func DFSTraverseTree() {
+//深度优先
+func DFSTraverseTree(t *binaryNode) {
+	//nodeStack := make([]binaryNode, 0)
+	if t == nil {
+		return
+	}
 
 }
 

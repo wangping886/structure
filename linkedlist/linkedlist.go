@@ -23,6 +23,9 @@ func main() {
 		insertNode(&link, currentNode)
 	}
 	showLinkedList(link)
+	fmt.Println("====reverse====")
+	reverseLinkedList(link)
+	showLinkedList(reversedLinkedList)
 }
 
 //当下一个节点为nil的时候 结束迭代
@@ -50,6 +53,15 @@ func insertNode(link *LinkedList, node *Node) {
 	}
 }
 
-func reverseLinkedList(l *LinkedList) {
+var reversedLinkedList LinkedList
 
+func reverseLinkedList(l LinkedList) {
+	var reversedHead *Node
+	curr := l.head
+	for curr != nil {
+		tempNode := &Node{Data: curr.Data, NextPoint: reversedHead}
+		reversedHead = tempNode
+		curr = curr.NextPoint
+	}
+	reversedLinkedList.head = reversedHead
 }
