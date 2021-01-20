@@ -47,9 +47,26 @@ func traverseTree(t *binaryNode) {
 
 //深度优先
 func DFSTraverseTree(t *binaryNode) {
-	//nodeStack := make([]binaryNode, 0)
+	nodeStack := make([]*binaryNode, 0)
 	if t == nil {
 		return
+	}
+
+	nodeStack = append(nodeStack, t)
+
+	for {
+		if len(nodeStack) == 0 {
+			return
+		}
+		curr := nodeStack[len(nodeStack)-1]
+		fmt.Println(curr.Val)
+		nodeStack = nodeStack[0 : len(nodeStack)-1]
+		if curr.Right != nil {
+			nodeStack = append(nodeStack, curr.Right)
+		}
+		if curr.Left != nil {
+			nodeStack = append(nodeStack, curr.Left)
+		}
 	}
 
 }
@@ -83,6 +100,7 @@ func BFSTraverseTree(t *binaryNode) {
 
 func main() {
 	var nums = []int{5, 3, 2, 1, 6, 4, 8}
+	fmt.Println(nums[:2])
 	for i := 0; i < len(nums); i++ {
 		InsertNode(&binaryNode{Val: nums[i]})
 	}
@@ -91,5 +109,6 @@ func main() {
 	fmt.Println(111)
 
 	BFSTraverseTree(tree)
-
+	fmt.Println("====dfs====")
+	DFSTraverseTree(tree)
 }
