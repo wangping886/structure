@@ -1,46 +1,34 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-)
+import "fmt"
 
-type UserAges struct {
-	ages map[string]int
-	sync.Mutex
-}
+func binarySearch(s []int, target int) int {
+	var i = 0
+	var j = len(s) - 1
 
-func (ua *UserAges) Add(name string, age int) {
-	ua.Lock()
-	defer ua.Unlock()
-	ua.ages[name] = age
-}
-
-func (ua *UserAges) Get(name string) int {
-	if age, ok := ua.ages[name]; ok {
-		return age
+	for {
+		if i >= j {
+			return -1
+		}
+		mid := (i + j) / 2
+		if s[mid] == target {
+			return mid
+		}
+		if s[mid] > target {
+			i = i
+			j = mid
+			continue
+		}
+		if s[mid] < target {
+			i = mid + 1
+			j = j
+			continue
+		}
 	}
 	return -1
 }
 func main() {
-	count := 1000
-	gw := sync.WaitGroup{}
-	gw.Add(count * 3)
-	u := UserAges{ages: map[string]int{}}
-	add := func(i int) {
-		u.Add(fmt.Sprintf("user_%d", i), i)
-		gw.Done()
-	}
-	for i := 0; i < count; i++ {
-		go add(i)
-		go add(i)
-	}
-	for i := 0; i < count; i++ {
-		go func(i int) {
-			defer gw.Done()
-			u.Get(fmt.Sprintf("user_%d", i))
-		}(i)
-	}
-	gw.Wait()
-	fmt.Println("Done")
+	s := []int{1, 2, 4, 5, 6, 7, 8}
+	i := binarySearch(s, 0)
+	fmt.Println(i)
 }
