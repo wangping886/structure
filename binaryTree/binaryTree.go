@@ -1,5 +1,5 @@
 package main
-
+//https://flaviocopes.com/golang-data-structures/
 import "fmt"
 
 type binaryNode struct {
@@ -40,10 +40,13 @@ func traverseTree(t *binaryNode) {
 	if t == nil {
 		return
 	}
-	traverseTree(t.Left)
 	fmt.Println(t.Val)
+	traverseTree(t.Left)
+
 	traverseTree(t.Right)
 }
+
+
 
 //深度优先
 func DFSTraverseTree(t *binaryNode) {
@@ -70,6 +73,58 @@ func DFSTraverseTree(t *binaryNode) {
 	}
 
 }
+
+//中序遍历
+//func (root *Node) InTravesal() {
+//	if root == nil {
+//		return
+//	}
+//
+//	s := stack.NewStack()
+//	cur := root
+//	for {
+//		for cur != nil {
+//			s.Push(cur)
+//			cur = cur.Left
+//		}
+//
+//		if s.Empty() {
+//			break
+//		}
+//
+//		cur = s.Pop().(*Node)
+//		fmt.Println(cur.Val)
+//		cur = cur.right
+//	}
+//}
+//后序遍历
+//func (root *Node) PostTravesal() {
+//	if root == nil {
+//		return
+//	}
+//
+//	s := stack.NewStack()
+//	out := stack.NewStack()
+//	s.Push(root)
+//
+//	for !s.Empty() {
+//		cur := s.Pop().(*Node)
+//		out.Push(cur)
+//
+//		if cur.Left != nil {
+//			s.Push(cur.Left)
+//		}
+//
+//		if cur.Right != nil {
+//			s.Push(cur.Right)
+//		}
+//	}
+//
+//	for !out.Empty() {
+//		cur := out.Pop().(*Node)
+//		fmt.Println(cur.Val)
+//	}
+//}
 
 //广度优先对当前每一个节点都应该优先输出他的所有子节点，先访问的先保证输出，可以借助队列
 func BFSTraverseTree(t *binaryNode) {
@@ -108,7 +163,7 @@ func main() {
 	traverseTree(tree)
 	fmt.Println(111)
 
-	BFSTraverseTree(tree)
+	//BFSTraverseTree(tree)
 	fmt.Println("====dfs====")
 	DFSTraverseTree(tree)
 }
